@@ -1,8 +1,8 @@
 package com.ananya.jobportal.dto;
 
-import jakarta.validation.constraints.*;
-import lombok.Getter;
-import lombok.Setter;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 
 public class RegisterRequest {
 
@@ -23,6 +23,16 @@ public class RegisterRequest {
     @NotBlank(message = "Role is required")
     private String role;
 
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+
     public String getEmail() {
         return email;
     }
@@ -31,5 +41,21 @@ public class RegisterRequest {
         this.email = email;
     }
 
-    // Getters and Setters
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
 }
