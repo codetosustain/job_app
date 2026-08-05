@@ -1,6 +1,7 @@
 package com.ananya.jobportal.entity;
 
 import jakarta.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -17,6 +18,9 @@ public class User {
 
     @OneToOne(mappedBy = "owner")
     private Company company;
+
+    @OneToMany(mappedBy = "candidate")
+    private List<Application> applications;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -88,5 +92,13 @@ public class User {
 
     public void setCompany(Company company) {
         this.company = company;
+    }
+
+    public List<Application> getApplications() {
+        return applications;
+    }
+
+    public void setApplications(List<Application> applications) {
+        this.applications = applications;
     }
 }

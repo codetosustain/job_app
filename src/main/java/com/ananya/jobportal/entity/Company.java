@@ -1,6 +1,7 @@
 package com.ananya.jobportal.entity;
 
 import jakarta.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "companies")
@@ -13,6 +14,9 @@ public class Company {
     @OneToOne
     @JoinColumn(name = "owner_id", nullable = false, unique = true)
     private User owner;
+
+    @OneToMany(mappedBy = "company")
+    private List<Job> jobs;
 
     @Column(nullable = false)
     private String companyName;
@@ -99,5 +103,13 @@ public class Company {
 
     public void setOwner(User owner) {
         this.owner = owner;
+    }
+
+    public List<Job> getJobs() {
+        return jobs;
+    }
+
+    public void setJobs(List<Job> jobs) {
+        this.jobs = jobs;
     }
 }
