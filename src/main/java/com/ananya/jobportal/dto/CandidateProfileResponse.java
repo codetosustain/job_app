@@ -1,53 +1,30 @@
-package com.ananya.jobportal.entity;
+package com.ananya.jobportal.dto;
 
-import jakarta.persistence.*;
+public class CandidateProfileResponse {
 
-@Entity
-@Table(name = "candidate_profiles")
-public class CandidateProfile {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @OneToOne
-    @JoinColumn(name = "user_id", nullable = false, unique = true)
-    private User user;
-
     private String phone;
-
-    private String skills;
-
-    private Integer experience;
-
     private String education;
-
+    private Integer experience;
+    private String skills;
     private Double currentSalary;
-
     private Double expectedSalary;
-
     private String preferredLocation;
-
     private Integer noticePeriod;
+    private String userName;
+    private String email;
+    private String name;
 
-    public CandidateProfile() {
+    public CandidateProfileResponse() {
     }
 
     public Long getId() {
         return id;
     }
 
-    // ================= User =================
-
-    public User getUser() {
-        return user;
+    public void setId(Long id) {
+        this.id = id;
     }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    // ================= Phone =================
 
     public String getPhone() {
         return phone;
@@ -57,17 +34,13 @@ public class CandidateProfile {
         this.phone = phone;
     }
 
-    // ================= Skills =================
-
-    public String getSkills() {
-        return skills;
+    public String getEducation() {
+        return education;
     }
 
-    public void setSkills(String skills) {
-        this.skills = skills;
+    public void setEducation(String education) {
+        this.education = education;
     }
-
-    // ================= Experience =================
 
     public Integer getExperience() {
         return experience;
@@ -77,17 +50,13 @@ public class CandidateProfile {
         this.experience = experience;
     }
 
-    // ================= Education =================
-
-    public String getEducation() {
-        return education;
+    public String getSkills() {
+        return skills;
     }
 
-    public void setEducation(String education) {
-        this.education = education;
+    public void setSkills(String skills) {
+        this.skills = skills;
     }
-
-    // ================= Current Salary =================
 
     public Double getCurrentSalary() {
         return currentSalary;
@@ -97,8 +66,6 @@ public class CandidateProfile {
         this.currentSalary = currentSalary;
     }
 
-    // ================= Expected Salary =================
-
     public Double getExpectedSalary() {
         return expectedSalary;
     }
@@ -106,8 +73,6 @@ public class CandidateProfile {
     public void setExpectedSalary(Double expectedSalary) {
         this.expectedSalary = expectedSalary;
     }
-
-    // ================= Preferred Location =================
 
     public String getPreferredLocation() {
         return preferredLocation;
@@ -117,13 +82,35 @@ public class CandidateProfile {
         this.preferredLocation = preferredLocation;
     }
 
-    // ================= Notice Period =================
-
     public Integer getNoticePeriod() {
         return noticePeriod;
     }
 
     public void setNoticePeriod(Integer noticePeriod) {
         this.noticePeriod = noticePeriod;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

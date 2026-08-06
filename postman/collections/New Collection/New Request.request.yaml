@@ -1,0 +1,30 @@
+$kind: http-request
+name: New Request
+url: http://localhost:8080/candidate/profile
+method: GET
+headers:
+  Content-Type: application/json
+body:
+  type: json
+  content: "{\r
+
+    \    \"phone\": \"9876543210\",\r
+
+    \    \"education\": \"B.Tech Computer Science\",\r
+
+    \    \"experience\": 2,\r
+
+    \    \"skills\": \"Java, Spring Boot, MySQL\",\r
+
+    \    \"currentSalary\": 500000,\r
+
+    \    \"expectedSalary\": 800000,\r
+
+    \    \"preferredLocation\": \"Bangalore\",\r
+
+    \    \"noticePeriod\": 30,\r
+
+    \    \"userId\": 4\r
+
+    }"
+order: 1784875732370
