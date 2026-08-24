@@ -10,8 +10,13 @@ import org.springframework.stereotype.Service;
 import com.ananya.jobportal.exception.ResourceNotFoundException;
 import java.time.LocalDate;
 import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import java.util.stream.Collectors;
-
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
+import com.ananya.jobportal.specification.JobSpecification;
 @Service
 public class JobService {
 
@@ -49,24 +54,49 @@ public class JobService {
     }
 
     // Get All Jobs
-    public List<JobResponse> getAllJobs() {
+    public Page<JobResponse> getAllJobs(
+            Pageable pageable,
+            String location,
+            String title,
+            Integer experience) {
 
-        List<Job> jobs = jobRepository.findAll();
+        Specification<Job> specification = Specification.allOf();
 
-        return jobs.stream()
-                .map(job -> {
-                    JobResponse response = new JobResponse();
+        if (location != null && !location.isBlank()) {
+            specification = specification.and(
+                    JobSpecification.hasLocation(location)
+            );
+        }
 
-                    response.setId(job.getId());
-                    response.setTitle(job.getTitle());
-                    response.setLocation(job.getLocation());
-                    response.setSalary(job.getSalary());
-                    response.setCompanyName(job.getCompany().getCompanyName());
-                    response.setStatus(job.getStatus());
+        if (title != null && !title.isBlank()) {
+            specification = specification.and(
+                    JobSpecification.hasTitle(title)
+            );
+        }
 
-                    return response;
-                })
-                .collect(Collectors.toList());
+        if (experience != null) {
+            specification = specification.and(
+                    JobSpecification.hasExperience(experience)
+            );
+        }
+
+        Page<Job> jobs =
+                jobRepository.findAll(specification, pageable);
+
+        return jobs.map(job -> {
+            JobResponse response = new JobResponse();
+
+            response.setId(job.getId());
+            response.setTitle(job.getTitle());
+            response.setLocation(job.getLocation());
+            response.setSalary(job.getSalary());
+            response.setCompanyName(
+                    job.getCompany().getCompanyName()
+            );
+            response.setStatus(job.getStatus());
+
+            return response;
+        });
     }
 
     public JobResponse getJobById(Long id) {

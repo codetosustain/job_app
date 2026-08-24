@@ -1,5 +1,7 @@
 package com.ananya.jobportal.controller;
 
+import com.ananya.jobportal.dto.LoginRequest;
+import com.ananya.jobportal.dto.LoginResponse;
 import com.ananya.jobportal.dto.RegisterRequest;
 import com.ananya.jobportal.service.UserService;
 import jakarta.validation.Valid;
@@ -24,4 +26,13 @@ public class AuthController {
         return ResponseEntity.ok("User Registered Successfully");
 
     }
+    @PostMapping("/login")
+    public ResponseEntity<LoginResponse> login(
+            @Valid @RequestBody LoginRequest request) {
+
+        return ResponseEntity.ok(
+                userService.login(request)
+        );
+    }
+
 }
