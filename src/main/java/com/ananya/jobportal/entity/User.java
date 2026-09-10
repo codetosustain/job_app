@@ -1,10 +1,26 @@
 package com.ananya.jobportal.entity;
 
 import jakarta.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
 public class User {
+
+    public enum Role {
+        CANDIDATE,
+        RECRUITER,
+        ADMIN
+    }
+
+    @OneToOne(mappedBy = "user")
+    private CandidateProfile candidateProfile;
+
+    @OneToOne(mappedBy = "owner")
+    private Company company;
+
+    @OneToMany(mappedBy = "candidate")
+    private List<Application> applications;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,8 +35,9 @@ public class User {
     @Column(nullable = false)
     private String password;
 
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private String role;
+    private Role role;
 
     public User() {
     }
@@ -53,11 +70,35 @@ public class User {
         this.password = password;
     }
 
-    public String getRole() {
+    public Role getRole() {
         return role;
     }
 
-    public void setRole(String role) {
+    public void setRole(Role role) {
         this.role = role;
+    }
+
+    public CandidateProfile getCandidateProfile() {
+        return candidateProfile;
+    }
+
+    public void setCandidateProfile(CandidateProfile candidateProfile) {
+        this.candidateProfile = candidateProfile;
+    }
+
+    public Company getCompany() {
+        return company;
+    }
+
+    public void setCompany(Company company) {
+        this.company = company;
+    }
+
+    public List<Application> getApplications() {
+        return applications;
+    }
+
+    public void setApplications(List<Application> applications) {
+        this.applications = applications;
     }
 }
